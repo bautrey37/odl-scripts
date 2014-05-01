@@ -2,24 +2,39 @@ import requests
 import json
 import os
 
+# Re-Programs the flows from the FlowConfig file pulled from controller using FlowProgrammer API
+
+baseUrl = 'http://10.190.94.120:8080/controller/nb/v2'
+containerName = 'default'
+service = 'flowprogrammer'
+headers = {'content-type': 'application/json'}
+
+def build_flow_url(baseUrl, service, containerName, switchType, switchId, flowName):
+    postUrl = '/'.join([baseUrl, service, containerName, 'node', switchType, switchId, 'staticFlow', flowName])
+    print postUrl
+    return postUrl
+
+# file to program
 dir_path = "./odl-flow-configs/"
-file_name = "setup1.txt"
+file_name = "flowConfig_1.txt"
 path = os.path.join(os.path.dirname(dir_path), file_name)
 f = open(path, "rb")
-payload = json.load(f)
-print payload
+flowsList = json.load(f)
+#print json.dumps(flowsList, indent=2)
 
-headers = {'content-type': 'application/json'}
-baseUrl = "http://10.190.94.120:8080/controller/nb/v2"
+odlFlowConfigs = flowsList['flowConfig']
+print json.dumps(odlFlowConfigs, indent=2)
 
-# Will need to use the FlowProgrammer API to set flows.
-# Will need to parse statistics file and upload flows one at a time
-#r = requests.post(baseUrl + "/statistics/default/flow", auth=('admin', 'admin'), data=payload, headers=headers)
+for flow in odlFlowConfigs:
+    switchType = flow['node']['type']
+    switchId = flow['node']['id']
+    name = flow['name']
+    #read in rest of configuration from file
+    payload = ''
+    r = requests.post(build_flow_url(baseUrl, service, containerName, switchType, switchId, name), auth=('admin', 'admin'), data=payload, headers=headers)
 
-r = requests.get(baseUrl + "/statistics/default/flow", auth=('admin', 'admin'))
-
-print "Headers: ", r.headers
-print "Text: " + r.text
-print "Status: ", r.status_code
-print "File posted: " + path
+    print "Headers: ", r.headers
+    print "Text: " + r.text
+    print "Status: ", r.status_code
+    print "File posted: " + path
 

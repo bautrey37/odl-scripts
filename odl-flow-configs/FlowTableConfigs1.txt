@@ -1,0 +1,192 @@
+[
+  {
+    "node": {
+      "type": "OF", 
+      "id": "00:00:16:10:ec:0e:8f:8f"
+    }, 
+    "flowStatistic": [
+      {
+        "durationNanoseconds": 223000000, 
+        "flow": {
+          "hardTimeout": 0, 
+          "idleTimeout": 0, 
+          "actions": [
+            {
+              "type": "POP_VLAN"
+            }, 
+            {
+              "type": "OUTPUT", 
+              "port": {
+                "node": {
+                  "type": "OF", 
+                  "id": "00:00:16:10:ec:0e:8f:8f"
+                }, 
+                "type": "OF", 
+                "id": "1"
+              }
+            }
+          ], 
+          "priority": 500, 
+          "id": 0, 
+          "match": {
+            "matchField": [
+              {
+                "type": "DL_SRC", 
+                "value": "10:f3:11:4e:d9:db"
+              }, 
+              {
+                "type": "DL_DST", 
+                "value": "00:1b:21:a2:cd:30"
+              }, 
+              {
+                "type": "IN_PORT", 
+                "value": "OF|48@OF|00:00:16:10:ec:0e:8f:8f"
+              }, 
+              {
+                "type": "DL_VLAN", 
+                "value": "101"
+              }
+            ]
+          }
+        }, 
+        "durationSeconds": 60, 
+        "byteCount": 0, 
+        "tableId": 0, 
+        "packetCount": 0
+      }, 
+      {
+        "durationNanoseconds": 183000000, 
+        "flow": {
+          "hardTimeout": 0, 
+          "idleTimeout": 0, 
+          "actions": [
+            {
+              "type": "OUTPUT", 
+              "port": {
+                "node": {
+                  "type": "OF", 
+                  "id": "00:00:16:10:ec:0e:8f:8f"
+                }, 
+                "type": "OF", 
+                "id": "129"
+              }
+            }, 
+            {
+              "type": "POP_VLAN"
+            }
+          ], 
+          "priority": 500, 
+          "id": 0, 
+          "match": {
+            "matchField": [
+              {
+                "type": "DL_SRC", 
+                "value": "10:f3:11:4e:d9:db"
+              }, 
+              {
+                "type": "DL_DST", 
+                "value": "90:e2:ba:49:a4:a5"
+              }, 
+              {
+                "type": "IN_PORT", 
+                "value": "OF|48@OF|00:00:16:10:ec:0e:8f:8f"
+              }, 
+              {
+                "type": "DL_VLAN", 
+                "value": "101"
+              }
+            ]
+          }
+        }, 
+        "durationSeconds": 46, 
+        "byteCount": 0, 
+        "tableId": 0, 
+        "packetCount": 0
+      }, 
+      {
+        "durationNanoseconds": 600000000, 
+        "flow": {
+          "hardTimeout": 0, 
+          "idleTimeout": 0, 
+          "actions": [
+            {
+              "type": "OUTPUT", 
+              "port": {
+                "node": {
+                  "type": "OF", 
+                  "id": "00:00:16:10:ec:0e:8f:8f"
+                }, 
+                "type": "OF", 
+                "id": "48"
+              }
+            }, 
+            {
+              "type": "SET_VLAN_ID", 
+              "vlanId": 101
+            }
+          ], 
+          "priority": 500, 
+          "id": 0, 
+          "match": {
+            "matchField": [
+              {
+                "type": "DL_SRC", 
+                "value": "00:1b:21:a2:cd:30"
+              }, 
+              {
+                "type": "IN_PORT", 
+                "value": "OF|1@OF|00:00:16:10:ec:0e:8f:8f"
+              }
+            ]
+          }
+        }, 
+        "durationSeconds": 67, 
+        "byteCount": 0, 
+        "tableId": 0, 
+        "packetCount": 0
+      }, 
+      {
+        "durationNanoseconds": 128000000, 
+        "flow": {
+          "hardTimeout": 0, 
+          "idleTimeout": 0, 
+          "actions": [
+            {
+              "type": "OUTPUT", 
+              "port": {
+                "node": {
+                  "type": "OF", 
+                  "id": "00:00:16:10:ec:0e:8f:8f"
+                }, 
+                "type": "OF", 
+                "id": "48"
+              }
+            }, 
+            {
+              "type": "SET_VLAN_ID", 
+              "vlanId": 101
+            }
+          ], 
+          "priority": 500, 
+          "id": 0, 
+          "match": {
+            "matchField": [
+              {
+                "type": "DL_SRC", 
+                "value": "90:e2:ba:49:a4:a5"
+              }, 
+              {
+                "type": "IN_PORT", 
+                "value": "OF|129@OF|00:00:16:10:ec:0e:8f:8f"
+              }
+            ]
+          }
+        }, 
+        "durationSeconds": 36, 
+        "byteCount": 0, 
+        "tableId": 0, 
+        "packetCount": 0
+      }
+    ]
+  }
+]

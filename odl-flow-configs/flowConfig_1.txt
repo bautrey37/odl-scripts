@@ -1,0 +1,68 @@
+{
+  "flowConfig": [
+    {
+      "node": {
+        "type": "OF", 
+        "id": "00:00:16:10:ec:0e:8f:8f"
+      }, 
+      "installInHw": "true", 
+      "name": "perftoGW", 
+      "dlSrc": "90:E2:BA:49:A4:A5", 
+      "actions": [
+        "OUTPUT=48", 
+        "SET_VLAN_ID=101"
+      ], 
+      "priority": "500", 
+      "ingressPort": "129"
+    }, 
+    {
+      "node": {
+        "type": "OF", 
+        "id": "00:00:16:10:ec:0e:8f:8f"
+      }, 
+      "installInHw": "true", 
+      "name": "GWtoPerf", 
+      "dlSrc": "10:F3:11:4E:D9:DB", 
+      "dlDst": "90:E2:BA:49:A4:A5", 
+      "vlanId": "101", 
+      "priority": "500", 
+      "ingressPort": "48", 
+      "actions": [
+        "OUTPUT=129", 
+        "POP_VLAN"
+      ]
+    }, 
+    {
+      "node": {
+        "type": "OF", 
+        "id": "00:00:16:10:ec:0e:8f:8f"
+      }, 
+      "installInHw": "true", 
+      "name": "GWtoEvc1", 
+      "dlSrc": "10:F3:11:4E:D9:DB", 
+      "dlDst": "00:1B:21:A2:CD:30", 
+      "vlanId": "101", 
+      "priority": "500", 
+      "ingressPort": "48", 
+      "actions": [
+        "POP_VLAN", 
+        "OUTPUT=1"
+      ]
+    }, 
+    {
+      "node": {
+        "type": "OF", 
+        "id": "00:00:16:10:ec:0e:8f:8f"
+      }, 
+      "installInHw": "true", 
+      "name": "Evc1toGW", 
+      "dlSrc": "00:1B:21:A2:CD:30", 
+      "actions": [
+        "OUTPUT=48", 
+        "SET_VLAN_ID=101"
+      ], 
+      "priority": "500", 
+      "ingressPort": "1"
+    }
+  ]
+}
