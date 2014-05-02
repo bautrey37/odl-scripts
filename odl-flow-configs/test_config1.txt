@@ -1,9 +1,0 @@
-[
-  {
-    "node": {
-      "type": "OF", 
-      "id": "00:00:16:10:ec:0e:8f:8f"
-    }, 
-    "flowStatistic": []
-  }
-]
