@@ -1,8 +1,12 @@
 import requests
 import json
 import os
+import httplib2
 
 # Re-Programs the flows from the FlowConfig file pulled from controller using FlowProgrammer API
+
+h = httplib2.Http(".cache")
+h.add_credentials('admin', 'admin')
 
 baseUrl = 'http://10.190.94.120:8080/controller/nb/v2'
 containerName = 'default'
@@ -14,6 +18,17 @@ def build_flow_url(baseUrl, service, containerName, switchType, switchId, flowNa
     print postUrl
     return postUrl
 
+def status_codes(code):
+    if code == 201:
+        print "Flow Config processed successfully"
+        print "File posted: " + path + '\n'
+    elif code == 200:
+        print "Static Flow modified successfully"
+        print "File posted: " + path + '\n'
+    else:
+        print "An error has occurred"
+        print "Status: ", code
+
 # file to program
 dir_path = "./odl-flow-configs/"
 file_name = "flowConfig_1.txt"
@@ -23,18 +38,19 @@ flowsList = json.load(f)
 #print json.dumps(flowsList, indent=2)
 
 odlFlowConfigs = flowsList['flowConfig']
-print json.dumps(odlFlowConfigs, indent=2)
+#print json.dumps(odlFlowConfigs, indent=2)
+
+##Example Flow from API
+#{"installInHw":"true","name":"flow1","node":{"id":"00:00:00:00:00:00:00:01","type":"OF"},"ingressPort":"1","priority":"500","etherType":"0x800","nwSrc":"9.9.1.1","actions":["OUTPUT=2"]}
 
 for flow in odlFlowConfigs:
     switchType = flow['node']['type']
     switchId = flow['node']['id']
     name = flow['name']
-    #read in rest of configuration from file
-    payload = ''
-    r = requests.post(build_flow_url(baseUrl, service, containerName, switchType, switchId, name), auth=('admin', 'admin'), data=payload, headers=headers)
+    print json.dumps(flow, indent=2)
 
-    print "Headers: ", r.headers
-    print "Text: " + r.text
-    print "Status: ", r.status_code
-    print "File posted: " + path
+    # PUT is used to put a file onto a webpage.  Do not use POST
+    r = requests.put(build_flow_url(baseUrl, service, containerName, switchType, switchId, name), auth=('admin', 'admin'), data=json.dumps(flow), headers=headers)
+    status_codes(r.status_code)
+
 
